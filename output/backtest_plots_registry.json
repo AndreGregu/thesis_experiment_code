@@ -1,0 +1,20 @@
+[
+  {
+    "id": "evaluation_plot",
+    "name": "Evaluation Plot",
+    "description": "Shows truth vs predictions over time with uncertainty bands and historical context.",
+    "needs_historical": true
+  },
+  {
+    "id": "metrics_dashboard",
+    "name": "Overview of various metrics by horizon/time",
+    "description": "A dashboard showing various metrics by forecast horizon and time period.",
+    "needs_historical": false
+  },
+  {
+    "id": "ratio_of_samples_above_truth",
+    "name": "Sample Bias Plot",
+    "description": "Backtest plot showing forecast bias relative to observations.",
+    "needs_historical": false
+  }
+]

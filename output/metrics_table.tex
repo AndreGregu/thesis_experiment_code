@@ -1,0 +1,18 @@
+\begin{table}[t]
+  \centering
+  \caption{Backtest evaluation across complementary metrics of three baseline models, one of them (Persistence) in two sampling variants. The best value per metric is shown in bold (for bias and calibration the target is 0.5; for peak metrics the target is 0). Different metrics select different forecasters. Bold marks the best value mechanically; Persistence-NB's lead on peak value difference is an artefact of the peak estimator's variance rather than better peak forecasting, and is discounted in the text.}
+  \label{tab:results-metrics}
+  \begin{tabular}{lrrrr}
+    \toprule
+    Metric & Mean & SeasonalNaive & Persistence & Persistence-NB \\
+    \midrule
+    MAE & 139.986 & 159.590 & \textbf{31.785} & 37.861 \\
+    RMSE & 175.037 & 185.630 & \textbf{45.014} & 52.671 \\
+    CRPS & 136.127 & 156.977 & \textbf{27.014} & 27.639 \\
+    Ratio above truth (bias) & 0.000 & 0.000 & 0.302 & \textbf{0.372} \\
+    Coverage 25-75 (calib.) & 0.000 & 0.000 & 0.278 & \textbf{0.708} \\
+    Peak value diff & 176.092 & 186.961 & 21.840 & \textbf{19.887} \\
+    Peak period lag & 0.250 & \textbf{0.167} & 0.833 & 0.583 \\
+    \bottomrule
+  \end{tabular}
+\end{table}

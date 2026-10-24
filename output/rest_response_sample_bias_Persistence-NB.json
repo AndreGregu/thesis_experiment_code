@@ -1,0 +1,926 @@
+{
+  "$schema": "https://vega.github.io/schema/vega/v6.json",
+  "background": "white",
+  "padding": 5,
+  "data": [
+    {
+      "name": "empty",
+      "values": [
+        {}
+      ]
+    },
+    {
+      "name": "data-91d931b379bcf56bea943f1a3bc9c4a2",
+      "values": [
+        {
+          "line": "These plots show biases in the samples returned by",
+          "y": 0
+        },
+        {
+          "line": "the model,  specifically whether the samples",
+          "y": 1
+        },
+        {
+          "line": "generally are over or under the true observation.",
+          "y": 2
+        },
+        {
+          "line": "This can be used to assess model calibration and",
+          "y": 3
+        },
+        {
+          "line": "tendency to over- or under-predict.",
+          "y": 4
+        }
+      ]
+    },
+    {
+      "name": "data-16bf90b8316bec4f5726a1350de44c36",
+      "values": [
+        {
+          "horizon_distance": 0,
+          "metric": 0.3858333333333333
+        },
+        {
+          "horizon_distance": 1,
+          "metric": 0.3720833333333333
+        },
+        {
+          "horizon_distance": 2,
+          "metric": 0.35874999999999996
+        }
+      ]
+    },
+    {
+      "name": "data-c32ae3f9ecb869fd165de68e26f00521",
+      "format": {},
+      "values": [
+        {
+          "ref": 0.5
+        }
+      ]
+    },
+    {
+      "name": "data-d9ed3318b45c0c4ffece497261ffa18c",
+      "values": [
+        {
+          "time_period": "2022W37",
+          "location": "boaco",
+          "metric": 0.37
+        },
+        {
+          "time_period": "2022W37",
+          "location": "chinandega",
+          "metric": 0.33
+        },
+        {
+          "time_period": "2022W37",
+          "location": "esteli",
+          "metric": 0.05
+        },
+        {
+          "time_period": "2022W37",
+          "location": "granada",
+          "metric": 0.43
+        },
+        {
+          "time_period": "2022W38",
+          "location": "boaco",
+          "metric": 0.395
+        },
+        {
+          "time_period": "2022W38",
+          "location": "chinandega",
+          "metric": 0.405
+        },
+        {
+          "time_period": "2022W38",
+          "location": "esteli",
+          "metric": 0.27
+        },
+        {
+          "time_period": "2022W38",
+          "location": "granada",
+          "metric": 0.4
+        },
+        {
+          "time_period": "2022W39",
+          "location": "boaco",
+          "metric": 0.4066666666666667
+        },
+        {
+          "time_period": "2022W39",
+          "location": "chinandega",
+          "metric": 0.4466666666666666
+        },
+        {
+          "time_period": "2022W39",
+          "location": "esteli",
+          "metric": 0.30333333333333334
+        },
+        {
+          "time_period": "2022W39",
+          "location": "granada",
+          "metric": 0.09333333333333334
+        },
+        {
+          "time_period": "2022W40",
+          "location": "boaco",
+          "metric": 0.1366666666666667
+        },
+        {
+          "time_period": "2022W40",
+          "location": "chinandega",
+          "metric": 0.44333333333333336
+        },
+        {
+          "time_period": "2022W40",
+          "location": "esteli",
+          "metric": 0.7866666666666666
+        },
+        {
+          "time_period": "2022W40",
+          "location": "granada",
+          "metric": 0.36000000000000004
+        },
+        {
+          "time_period": "2022W41",
+          "location": "boaco",
+          "metric": 0.19666666666666666
+        },
+        {
+          "time_period": "2022W41",
+          "location": "chinandega",
+          "metric": 0.35333333333333333
+        },
+        {
+          "time_period": "2022W41",
+          "location": "esteli",
+          "metric": 0.4033333333333333
+        },
+        {
+          "time_period": "2022W41",
+          "location": "granada",
+          "metric": 0.2966666666666667
+        },
+        {
+          "time_period": "2022W42",
+          "location": "boaco",
+          "metric": 0.21
+        },
+        {
+          "time_period": "2022W42",
+          "location": "chinandega",
+          "metric": 0.31666666666666665
+        },
+        {
+          "time_period": "2022W42",
+          "location": "esteli",
+          "metric": 0.58
+        },
+        {
+          "time_period": "2022W42",
+          "location": "granada",
+          "metric": 0.27999999999999997
+        },
+        {
+          "time_period": "2022W43",
+          "location": "boaco",
+          "metric": 0.44999999999999996
+        },
+        {
+          "time_period": "2022W43",
+          "location": "chinandega",
+          "metric": 0.385
+        },
+        {
+          "time_period": "2022W43",
+          "location": "esteli",
+          "metric": 0.5249999999999999
+        },
+        {
+          "time_period": "2022W43",
+          "location": "granada",
+          "metric": 0.26
+        },
+        {
+          "time_period": "2022W44",
+          "location": "boaco",
+          "metric": 0.5
+        },
+        {
+          "time_period": "2022W44",
+          "location": "chinandega",
+          "metric": 0.6
+        },
+        {
+          "time_period": "2022W44",
+          "location": "esteli",
+          "metric": 0.81
+        },
+        {
+          "time_period": "2022W44",
+          "location": "granada",
+          "metric": 0.69
+        }
+      ]
+    },
+    {
+      "name": "data_0",
+      "source": "data-16bf90b8316bec4f5726a1350de44c36",
+      "transform": [
+        {
+          "type": "stack",
+          "groupby": [
+            "horizon_distance"
+          ],
+          "field": "metric",
+          "sort": {
+            "field": [],
+            "order": []
+          },
+          "as": [
+            "metric_start",
+            "metric_end"
+          ],
+          "offset": "zero"
+        },
+        {
+          "type": "filter",
+          "expr": "isValid(datum[\"metric\"]) && isFinite(+datum[\"metric\"])"
+        }
+      ]
+    },
+    {
+      "name": "data_1",
+      "source": "data-c32ae3f9ecb869fd165de68e26f00521",
+      "transform": [
+        {
+          "type": "filter",
+          "expr": "isValid(datum[\"ref\"]) && isFinite(+datum[\"ref\"])"
+        }
+      ]
+    },
+    {
+      "name": "data_2",
+      "source": "data-d9ed3318b45c0c4ffece497261ffa18c",
+      "transform": [
+        {
+          "type": "filter",
+          "expr": "isValid(datum[\"metric\"]) && isFinite(+datum[\"metric\"])"
+        }
+      ]
+    }
+  ],
+  "signals": [
+    {
+      "name": "concat_0_width",
+      "value": 20
+    },
+    {
+      "name": "concat_0_height",
+      "value": 24
+    },
+    {
+      "name": "concat_1_width",
+      "value": 20
+    },
+    {
+      "name": "concat_1_height",
+      "value": 120
+    },
+    {
+      "name": "concat_2_width",
+      "value": 600
+    },
+    {
+      "name": "concat_2_height",
+      "value": 400
+    },
+    {
+      "name": "concat_3_width",
+      "value": 600
+    },
+    {
+      "name": "concat_3_height",
+      "value": 400
+    }
+  ],
+  "layout": {
+    "padding": 20,
+    "columns": 1,
+    "bounds": "full",
+    "align": "each"
+  },
+  "marks": [
+    {
+      "type": "group",
+      "name": "concat_0_group",
+      "style": "view",
+      "encode": {
+        "update": {
+          "width": {
+            "signal": "concat_0_width"
+          },
+          "height": {
+            "signal": "concat_0_height"
+          }
+        }
+      },
+      "marks": [
+        {
+          "name": "concat_0_marks",
+          "type": "text",
+          "style": [
+            "text"
+          ],
+          "from": {
+            "data": "empty"
+          },
+          "encode": {
+            "update": {
+              "align": {
+                "value": "left"
+              },
+              "fontSize": {
+                "value": 20
+              },
+              "fontWeight": {
+                "value": "bold"
+              },
+              "fill": {
+                "value": "black"
+              },
+              "x": {
+                "signal": "concat_0_width",
+                "mult": 0.5
+              },
+              "y": {
+                "signal": "concat_0_height",
+                "mult": 0.5
+              },
+              "text": {
+                "value": "Sample Bias Dashboard"
+              },
+              "baseline": {
+                "value": "middle"
+              }
+            }
+          }
+        }
+      ]
+    },
+    {
+      "type": "group",
+      "name": "concat_1_group",
+      "style": "cell",
+      "encode": {
+        "update": {
+          "width": {
+            "signal": "concat_1_width"
+          },
+          "height": {
+            "signal": "concat_1_height"
+          }
+        }
+      },
+      "marks": [
+        {
+          "name": "concat_1_marks",
+          "type": "text",
+          "style": [
+            "text"
+          ],
+          "from": {
+            "data": "data-91d931b379bcf56bea943f1a3bc9c4a2"
+          },
+          "encode": {
+            "update": {
+              "align": {
+                "value": "left"
+              },
+              "baseline": {
+                "value": "top"
+              },
+              "fontSize": {
+                "value": 12
+              },
+              "fill": {
+                "value": "black"
+              },
+              "description": {
+                "signal": "\"y: \" + (isValid(datum[\"y\"]) ? datum[\"y\"] : \"\"+datum[\"y\"]) + \"; line: \" + (isValid(datum[\"line\"]) ? datum[\"line\"] : \"\"+datum[\"line\"])"
+              },
+              "x": {
+                "signal": "concat_1_width",
+                "mult": 0.5
+              },
+              "y": {
+                "scale": "concat_1_y",
+                "field": "y"
+              },
+              "text": {
+                "signal": "isValid(datum[\"line\"]) ? datum[\"line\"] : \"\"+datum[\"line\"]"
+              }
+            }
+          }
+        }
+      ]
+    },
+    {
+      "type": "group",
+      "name": "concat_2_group",
+      "title": {
+        "text": "Ratio of samples above truth by horizon",
+        "subtitle": "Ratio (0.0-1.0) of forecast samples > truth; dashed line = 0.5 (unbiased). x-axis: forecast horizon distance",
+        "anchor": "start",
+        "fontSize": 16,
+        "subtitleFontSize": 12
+      },
+      "style": "cell",
+      "encode": {
+        "update": {
+          "width": {
+            "signal": "concat_2_width"
+          },
+          "height": {
+            "signal": "concat_2_height"
+          }
+        }
+      },
+      "marks": [
+        {
+          "name": "concat_2_layer_0_marks",
+          "type": "rect",
+          "style": [
+            "bar"
+          ],
+          "from": {
+            "data": "data_0"
+          },
+          "encode": {
+            "update": {
+              "fill": {
+                "value": "#4c78a8"
+              },
+              "tooltip": {
+                "signal": "{\"horizon_distance\": format(datum[\"horizon_distance\"], \"\"), \"metric\": format(datum[\"metric\"], \"\")}"
+              },
+              "ariaRoleDescription": {
+                "value": "bar"
+              },
+              "description": {
+                "signal": "\"Horizon (periods ahead): \" + (isValid(datum[\"horizon_distance\"]) ? datum[\"horizon_distance\"] : \"\"+datum[\"horizon_distance\"]) + \"; Ratio of samples above truth: \" + (format(datum[\"metric\"], \"\")) + \"; horizon_distance: \" + (format(datum[\"horizon_distance\"], \"\")) + \"; metric: \" + (format(datum[\"metric\"], \"\"))"
+              },
+              "x": {
+                "scale": "concat_2_x",
+                "field": "horizon_distance"
+              },
+              "width": {
+                "signal": "max(0.25, bandwidth('concat_2_x'))"
+              },
+              "y": {
+                "scale": "concat_2_y",
+                "field": "metric_end"
+              },
+              "y2": {
+                "scale": "concat_2_y",
+                "field": "metric_start"
+              }
+            }
+          }
+        },
+        {
+          "name": "concat_2_layer_1_marks",
+          "type": "rule",
+          "style": [
+            "rule"
+          ],
+          "from": {
+            "data": "data_1"
+          },
+          "encode": {
+            "update": {
+              "strokeDash": {
+                "value": [
+                  6,
+                  4
+                ]
+              },
+              "stroke": {
+                "value": "firebrick"
+              },
+              "description": {
+                "signal": "\"ref: \" + (format(datum[\"ref\"], \"\"))"
+              },
+              "x": {
+                "field": {
+                  "group": "width"
+                }
+              },
+              "x2": {
+                "value": 0
+              },
+              "y": {
+                "scale": "concat_2_y",
+                "field": "ref"
+              },
+              "strokeWidth": {
+                "value": 1
+              }
+            }
+          }
+        }
+      ],
+      "axes": [
+        {
+          "scale": "concat_2_y",
+          "orient": "left",
+          "gridScale": "concat_2_x",
+          "grid": true,
+          "tickCount": {
+            "signal": "ceil(concat_2_height/40)"
+          },
+          "domain": false,
+          "labels": false,
+          "aria": false,
+          "maxExtent": 0,
+          "minExtent": 0,
+          "ticks": false,
+          "zindex": 0
+        },
+        {
+          "scale": "concat_2_x",
+          "orient": "bottom",
+          "grid": false,
+          "title": "Horizon (periods ahead)",
+          "labelAlign": "right",
+          "labelAngle": 270,
+          "labelBaseline": "middle",
+          "zindex": 0
+        },
+        {
+          "scale": "concat_2_y",
+          "orient": "left",
+          "grid": false,
+          "title": "Ratio of samples above truth",
+          "labelOverlap": true,
+          "tickCount": {
+            "signal": "ceil(concat_2_height/40)"
+          },
+          "zindex": 0
+        }
+      ]
+    },
+    {
+      "type": "group",
+      "name": "concat_3_group",
+      "title": {
+        "text": "Ratio of samples above truth by time period",
+        "subtitle": "Ratio (0.0-1.0) of forecast samples > truth; dashed line = 0.5 (unbiased). x-axis: time period of observation",
+        "anchor": "start",
+        "fontSize": 16,
+        "subtitleFontSize": 12
+      },
+      "style": "cell",
+      "encode": {
+        "update": {
+          "width": {
+            "signal": "concat_3_width"
+          },
+          "height": {
+            "signal": "concat_3_height"
+          }
+        }
+      },
+      "marks": [
+        {
+          "name": "concat_3_layer_0_layer_0_pathgroup",
+          "type": "group",
+          "from": {
+            "facet": {
+              "name": "faceted_path_concat_3_layer_0_layer_0_main",
+              "data": "data-d9ed3318b45c0c4ffece497261ffa18c",
+              "groupby": [
+                "location"
+              ]
+            }
+          },
+          "encode": {
+            "update": {
+              "width": {
+                "field": {
+                  "group": "width"
+                }
+              },
+              "height": {
+                "field": {
+                  "group": "height"
+                }
+              }
+            }
+          },
+          "marks": [
+            {
+              "name": "concat_3_layer_0_layer_0_marks",
+              "type": "line",
+              "style": [
+                "line"
+              ],
+              "sort": {
+                "field": "x"
+              },
+              "from": {
+                "data": "faceted_path_concat_3_layer_0_layer_0_main"
+              },
+              "encode": {
+                "update": {
+                  "stroke": {
+                    "scale": "color",
+                    "field": "location"
+                  },
+                  "tooltip": {
+                    "signal": "{\"time_period\": isValid(datum[\"time_period\"]) ? datum[\"time_period\"] : \"\"+datum[\"time_period\"], \"location\": isValid(datum[\"location\"]) ? datum[\"location\"] : \"\"+datum[\"location\"], \"metric\": format(datum[\"metric\"], \"\")}"
+                  },
+                  "description": {
+                    "signal": "\"Time period: \" + (isValid(datum[\"time_period\"]) ? datum[\"time_period\"] : \"\"+datum[\"time_period\"]) + \"; Ratio of samples above truth: \" + (format(datum[\"metric\"], \"\")) + \"; Location: \" + (isValid(datum[\"location\"]) ? datum[\"location\"] : \"\"+datum[\"location\"]) + \"; time_period: \" + (isValid(datum[\"time_period\"]) ? datum[\"time_period\"] : \"\"+datum[\"time_period\"]) + \"; location: \" + (isValid(datum[\"location\"]) ? datum[\"location\"] : \"\"+datum[\"location\"]) + \"; metric: \" + (format(datum[\"metric\"], \"\"))"
+                  },
+                  "x": {
+                    "scale": "concat_3_x",
+                    "field": "time_period"
+                  },
+                  "y": {
+                    "scale": "concat_3_y",
+                    "field": "metric"
+                  },
+                  "defined": {
+                    "signal": "isValid(datum[\"metric\"]) && isFinite(+datum[\"metric\"])"
+                  }
+                }
+              }
+            }
+          ]
+        },
+        {
+          "name": "concat_3_layer_0_layer_1_marks",
+          "type": "symbol",
+          "style": [
+            "point"
+          ],
+          "from": {
+            "data": "data_2"
+          },
+          "encode": {
+            "update": {
+              "opacity": {
+                "value": 1
+              },
+              "fill": {
+                "scale": "color",
+                "field": "location"
+              },
+              "tooltip": {
+                "signal": "{\"time_period\": isValid(datum[\"time_period\"]) ? datum[\"time_period\"] : \"\"+datum[\"time_period\"], \"location\": isValid(datum[\"location\"]) ? datum[\"location\"] : \"\"+datum[\"location\"], \"metric\": format(datum[\"metric\"], \"\")}"
+              },
+              "ariaRoleDescription": {
+                "value": "point"
+              },
+              "description": {
+                "signal": "\"Time period: \" + (isValid(datum[\"time_period\"]) ? datum[\"time_period\"] : \"\"+datum[\"time_period\"]) + \"; Ratio of samples above truth: \" + (format(datum[\"metric\"], \"\")) + \"; Location: \" + (isValid(datum[\"location\"]) ? datum[\"location\"] : \"\"+datum[\"location\"]) + \"; time_period: \" + (isValid(datum[\"time_period\"]) ? datum[\"time_period\"] : \"\"+datum[\"time_period\"]) + \"; location: \" + (isValid(datum[\"location\"]) ? datum[\"location\"] : \"\"+datum[\"location\"]) + \"; metric: \" + (format(datum[\"metric\"], \"\"))"
+              },
+              "x": {
+                "scale": "concat_3_x",
+                "field": "time_period"
+              },
+              "y": {
+                "scale": "concat_3_y",
+                "field": "metric"
+              }
+            }
+          }
+        },
+        {
+          "name": "concat_3_layer_1_marks",
+          "type": "rule",
+          "style": [
+            "rule"
+          ],
+          "from": {
+            "data": "data_1"
+          },
+          "encode": {
+            "update": {
+              "strokeDash": {
+                "value": [
+                  6,
+                  4
+                ]
+              },
+              "stroke": {
+                "value": "firebrick"
+              },
+              "description": {
+                "signal": "\"ref: \" + (format(datum[\"ref\"], \"\"))"
+              },
+              "x": {
+                "field": {
+                  "group": "width"
+                }
+              },
+              "x2": {
+                "value": 0
+              },
+              "y": {
+                "scale": "concat_3_y",
+                "field": "ref"
+              },
+              "strokeWidth": {
+                "value": 1
+              }
+            }
+          }
+        }
+      ],
+      "axes": [
+        {
+          "scale": "concat_3_y",
+          "orient": "left",
+          "gridScale": "concat_3_x",
+          "grid": true,
+          "tickCount": {
+            "signal": "ceil(concat_3_height/40)"
+          },
+          "domain": false,
+          "labels": false,
+          "aria": false,
+          "maxExtent": 0,
+          "minExtent": 0,
+          "ticks": false,
+          "zindex": 0
+        },
+        {
+          "scale": "concat_3_x",
+          "orient": "bottom",
+          "grid": false,
+          "title": "Time period",
+          "labelAlign": "right",
+          "labelAngle": 270,
+          "labelBaseline": "middle",
+          "zindex": 0
+        },
+        {
+          "scale": "concat_3_y",
+          "orient": "left",
+          "grid": false,
+          "title": "Ratio of samples above truth",
+          "labelOverlap": true,
+          "tickCount": {
+            "signal": "ceil(concat_3_height/40)"
+          },
+          "zindex": 0
+        }
+      ]
+    }
+  ],
+  "scales": [
+    {
+      "name": "color",
+      "type": "ordinal",
+      "domain": {
+        "fields": [
+          {
+            "data": "data-d9ed3318b45c0c4ffece497261ffa18c",
+            "field": "location"
+          },
+          {
+            "data": "data_2",
+            "field": "location"
+          }
+        ],
+        "sort": true
+      },
+      "range": "category"
+    },
+    {
+      "name": "concat_1_y",
+      "type": "point",
+      "domain": {
+        "data": "data-91d931b379bcf56bea943f1a3bc9c4a2",
+        "field": "y",
+        "sort": true
+      },
+      "range": [
+        0,
+        {
+          "signal": "concat_1_height"
+        }
+      ],
+      "padding": 0.5
+    },
+    {
+      "name": "concat_2_x",
+      "type": "band",
+      "domain": {
+        "data": "data_0",
+        "field": "horizon_distance",
+        "sort": true
+      },
+      "range": [
+        0,
+        {
+          "signal": "concat_2_width"
+        }
+      ],
+      "paddingInner": 0.1,
+      "paddingOuter": 0.05
+    },
+    {
+      "name": "concat_2_y",
+      "type": "linear",
+      "domain": [
+        0,
+        1
+      ],
+      "range": [
+        {
+          "signal": "concat_2_height"
+        },
+        0
+      ],
+      "nice": true,
+      "zero": true
+    },
+    {
+      "name": "concat_3_x",
+      "type": "point",
+      "domain": {
+        "fields": [
+          {
+            "data": "data-d9ed3318b45c0c4ffece497261ffa18c",
+            "field": "time_period"
+          },
+          {
+            "data": "data_2",
+            "field": "time_period"
+          }
+        ],
+        "sort": true
+      },
+      "range": [
+        0,
+        {
+          "signal": "concat_3_width"
+        }
+      ],
+      "padding": 0.5
+    },
+    {
+      "name": "concat_3_y",
+      "type": "linear",
+      "domain": [
+        0,
+        1
+      ],
+      "range": [
+        {
+          "signal": "concat_3_height"
+        },
+        0
+      ],
+      "nice": true,
+      "zero": true
+    }
+  ],
+  "legends": [
+    {
+      "title": "Location",
+      "stroke": "color",
+      "symbolType": "circle",
+      "fill": "color",
+      "encode": {
+        "symbols": {
+          "update": {
+            "opacity": {
+              "value": 1
+            }
+          }
+        }
+      }
+    }
+  ],
+  "config": {
+    "axis": {
+      "labelFontSize": 11,
+      "titleFontSize": 12
+    },
+    "legend": {
+      "labelFontSize": 11,
+      "titleFontSize": 12
+    },
+    "style": {
+      "cell": {
+        "stroke": null
+      }
+    }
+  }
+}
