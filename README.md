@@ -15,8 +15,9 @@ Produces the numbers and figures reported in Chapter 5 of the thesis
 |---|---|
 | `run_results_experiment.py` | Main experiment: backtests Mean, SeasonalNaive, Persistence and Persistence-NB, computes every registered metric, writes tables and figures |
 | `run_r_sweep.py` | Sensitivity sweep over the negative-binomial dispersion parameter `r ∈ {3, 6, 10}` |
+| `run_seed_comparison.py` | Re-runs the full backtest at five seeds and reports the spread of every metric across runs |
 
-Both write to `output/` next to the scripts.
+All three write to `output/` next to the scripts.
 
 ---
 
@@ -61,15 +62,16 @@ chap-core/                          <- the checkout at 14594aa5
 └── experiment/                     <- this repository, any name
     ├── run_results_experiment.py
     ├── run_r_sweep.py
+    ├── run_seed_comparison.py
     └── output/                     <- created on first run
 ```
 
 Placing the scripts anywhere else makes `DATASET_CSV` point at a path that does
 not exist.
 
-`run_r_sweep.py` does `from run_results_experiment import ...`, so both scripts
-must stay in the same directory, and that directory must be the working
-directory when running.
+`run_r_sweep.py` and `run_seed_comparison.py` both do
+`from run_results_experiment import ...`, so all three scripts must stay in the
+same directory, and that directory must be the working directory when running.
 
 ---
 
@@ -112,7 +114,11 @@ Takes a few minutes. Then, optionally:
 
 ```bash
 uv run python run_r_sweep.py
+uv run python run_seed_comparison.py
 ```
+
+`run_seed_comparison.py` runs the whole backtest five times over, so it takes
+roughly five times as long as the main script.
 
 ---
 
@@ -132,6 +138,7 @@ Written to `output/`:
 | `yaml_dashboard.{json,png}` | dashboard composed from `dashboard_config.yaml` |
 | `backtest_plots_registry.json`, `rest_response_sample_bias_*.json` | platform registry state and the specification the REST endpoint returns |
 | `r_sweep.csv` | from `run_r_sweep.py` |
+| `seed_comparison.csv` | from `run_seed_comparison.py`: every metric at five seeds, with spreads |
 
 The flat CSVs allow every reported metric to be recomputed from the raw samples
 without re-running the backtest.
@@ -147,7 +154,81 @@ NumPy's global state, so results do not depend on call order.
 Re-running produces byte-identical output, including the PNGs. `run_r_sweep.py`
 uses the same seeding rule, so its `r = 6` column reproduces the Persistence-NB
 column of `metrics_by_model.csv` exactly — a useful check that both scripts are
-running against the same platform revision.
+running against the same platform revision. The `seed_20260723` column of
+`seed_comparison.csv` is the same check for the third script: it reproduces
+`metrics_by_model.csv` in full.
+
+---
+
+## Run-to-run variability
+
+A single seed is reported, so every number carries sampling noise.
+`run_seed_comparison.py` re-runs the entire backtest at five base seeds
+(`SEED + 0, 1000, 2000, 3000, 4000`) and writes one row per
+(metric, forecaster) with a column per seed, the absolute spread (max − min)
+and the spread relative to the mean. Five runs is too few to estimate a
+variance, but enough to show which metrics move and by how much.
+
+The point of the exercise is the controlled pair. Persistence-NB differs from
+Persistence only in its sampler, so any difference between the two is
+attributable to dispersion alone — provided the difference is larger than the
+run-to-run noise. The table puts each reported difference against the larger
+of the two forecasters' spreads.
+
+| Metric | Persistence | Persistence-NB | Difference | Largest spread | Difference / spread |
+|---|---:|---:|---:|---:|---:|
+| MAE | 31.785 | 37.861 | +6.076 | 1.708 | **3.6×** |
+| RMSE | 45.014 | 52.671 | +7.657 | 1.497 | **5.1×** |
+| Ratio above truth | 0.302 | 0.372 | +0.070 | 0.014 | **5.0×** |
+| Coverage 25–75 | 0.278 | 0.708 | +0.431 | 0.069 | **6.2×** |
+| CRPS | 27.014 | 27.639 | +0.626 | 0.820 | 0.8× |
+| Peak value difference | 21.840 | 19.887 | −1.953 | 4.297 | 0.5× |
+| Peak period lag | 0.833 | 0.583 | −0.250 | 0.500 | 0.5× |
+
+Columns two and three are the reported seed, `20260723`. Difference is
+Persistence-NB minus Persistence.
+
+Three readings:
+
+- **The top four separate cleanly.** The accuracy penalty and the bias and
+  coverage reward are three to six times the noise, and hold at every seed
+  tested. The ranking reversal between these two families does not depend on
+  the seed.
+- **CRPS does not separate.** The 0.626 difference is smaller than
+  Persistence-NB's own spread of 0.820, and averaged over all five runs it
+  falls to 0.436. The proper score is not merely close between the two
+  configurations — at this sample size it cannot tell them apart.
+- **Neither peak difference separates.** Persistence-NB's nominally better
+  peak value (19.887 against 21.840) sits well inside a spread of 4.297; over
+  five seeds its values run from 18.100 to 22.398, straddling Persistence's.
+  Peak period lag behaves the same way. This is a more direct reason to
+  discount that result than the monotonicity in `r` shown by
+  `run_r_sweep.py`.
+
+Persistence-NB is also the least stable of the four forecasters on six of the
+seven metrics by absolute spread — all but peak period lag — consistent with a
+sampling distribution whose standard deviation is wider by a factor
+√(1 + λ/r).
+
+### Reading `spread_pct`
+
+The relative column is `spread / |mean across seeds|`, which is meaningless
+wherever that mean is near zero. Two cells read 500%, for opposite reasons:
+
+- **`Ratio above truth`, Mean** is an artefact. Mean produces no samples above
+  the observation in four runs and exactly one in the fifth, so an absolute
+  spread of 0.0003 is divided by a mean of 0.00006.
+- **`Peak period lag`, Mean** is real. The absolute spread is a full period:
+  the value ranges from −0.750 to +0.250 and changes sign between runs, which
+  is also why its mean sits near zero. Mean's predicted peak moves a whole
+  time step depending on the seed.
+
+Empty cells are exact zeros. Mean and SeasonalNaive forecast so far below the
+evaluation window that not one of their 7 200 samples exceeds any observation
+in any run, so their bias and coverage are identically 0 and perfectly stable.
+
+For metrics whose target is zero, read the absolute `spread` column rather
+than `spread_pct`.
 
 ---
 
