@@ -16,8 +16,9 @@ Produces the numbers and figures reported in Chapter 5 of the thesis
 | `run_results_experiment.py` | Main experiment: backtests Mean, SeasonalNaive, Persistence and Persistence-NB, computes every registered metric, writes tables and figures |
 | `run_r_sweep.py` | Sensitivity sweep over the negative-binomial dispersion parameter `r ∈ {3, 6, 10}` |
 | `run_seed_comparison.py` | Re-runs the full backtest at five seeds and reports the spread of every metric across runs |
+| `run_crps_bias.py` | Recomputes CRPS from the stored samples under CHAP's estimator and the unbiased one |
 
-All three write to `output/` next to the scripts.
+All four write to `output/` next to the scripts.
 
 ---
 
@@ -63,6 +64,7 @@ chap-core/                          <- the checkout at 14594aa5
     ├── run_results_experiment.py
     ├── run_r_sweep.py
     ├── run_seed_comparison.py
+    ├── run_crps_bias.py
     └── output/                     <- created on first run
 ```
 
@@ -70,8 +72,14 @@ Placing the scripts anywhere else makes `DATASET_CSV` point at a path that does
 not exist.
 
 `run_r_sweep.py` and `run_seed_comparison.py` both do
-`from run_results_experiment import ...`, so all three scripts must stay in the
-same directory, and that directory must be the working directory when running.
+`from run_results_experiment import ...`, so those three scripts must stay in
+the same directory, and that directory must be the working directory when
+running.
+
+`run_crps_bias.py` is the exception. It reads the CSVs in `output/` and
+nothing else — standard library only, no `chap_core`, no `numpy`, no `pandas`
+— so it runs anywhere the output has been copied, without the platform
+installed and without the dataset.
 
 ---
 
@@ -120,6 +128,13 @@ uv run python run_seed_comparison.py
 `run_seed_comparison.py` runs the whole backtest five times over, so it takes
 roughly five times as long as the main script.
 
+The estimator check needs no backtest and no dependencies, only the CSVs the
+main script already wrote:
+
+```bash
+python run_crps_bias.py
+```
+
 ---
 
 ## Output
@@ -139,6 +154,7 @@ Written to `output/`:
 | `backtest_plots_registry.json`, `rest_response_sample_bias_*.json` | platform registry state and the specification the REST endpoint returns |
 | `r_sweep.csv` | from `run_r_sweep.py` |
 | `seed_comparison.csv` | from `run_seed_comparison.py`: every metric at five seeds, with spreads |
+| `crps_bias.csv` | from `run_crps_bias.py`: CRPS under both estimators, with the bias and the verification residuals |
 
 The flat CSVs allow every reported metric to be recomputed from the raw samples
 without re-running the backtest.
@@ -229,6 +245,72 @@ in any run, so their bias and coverage are identically 0 and perfectly stable.
 
 For metrics whose target is zero, read the absolute `spread` column rather
 than `spread_pct`.
+
+---
+
+## CRPS estimator bias
+
+CHAP computes the dispersion term of the CRPS over the full `M × M` matrix of
+pairwise sample differences:
+
+```python
+term1 = np.mean(np.abs(samples - observed))
+term2 = 0.5 * np.mean(np.abs(samples[:, None] - samples[None, :]))
+return float(term1 - term2)
+```
+
+`np.mean` divides by `M²`, so the `M` zero-valued diagonal entries are
+counted. This is the V-statistic. The unbiased estimator divides by `M(M−1)`,
+over the off-diagonal pairs only, and the two differ by exactly
+
+```
+CRPS_V − CRPS_U = term2_V / (M − 1)
+```
+
+`run_crps_bias.py` recomputes both from the stored samples, with `M = 100`:
+
+| Forecaster | CRPS_V (reported) | CRPS_U (unbiased) | Bias | Bias % |
+|---|---:|---:|---:|---:|
+| Mean | 136.126875 | 136.089245 | 0.037630 | 0.03% |
+| SeasonalNaive | 156.976942 | 156.951229 | 0.025713 | 0.02% |
+| Persistence | 27.013740 | 26.943625 | 0.070115 | 0.26% |
+| Persistence-NB | 27.639264 | 27.258378 | **0.380886** | **1.38%** |
+
+The bias is always positive and scales with the spread of the samples, so it
+penalises the widest predictive distribution hardest — which is precisely the
+difference the controlled pair is built to isolate:
+
+```
+gap under CHAP's V-statistic : 0.625524
+gap under the unbiased U     : 0.314753
+share of the gap that is estimator bias: 49.7%
+```
+
+Roughly half the reported CRPS difference between Persistence and
+Persistence-NB is an artefact of the estimator rather than a property of the
+forecasts. The ranking does not change — Persistence-NB scores worse under
+both — but the magnitude halves, and the corrected gap of 0.315 is under half
+of Persistence-NB's own seed spread of 0.820.
+
+The script verifies itself three ways, all printed on each run:
+
+1. The V-statistic reproduces `metrics_by_model.csv` exactly for three of the
+   four forecasters, and to 7.1e−15 for Persistence-NB (one ulp; the script
+   sums via order statistics where CHAP builds the matrix).
+2. The identity `V − U = term2_V/(M−1)` holds to ~1e−14, i.e. exactly up to
+   floating point.
+3. The `O(M log M)` order-statistic form used for speed is checked against the
+   literal `ΣΣ|xᵢ−xⱼ|` double sum on every cell, residual 0.0e+00.
+
+### Upstream status
+
+This is not a local defect. The normalisation is unchanged upstream: PR #467
+(*perf: vectorise sample CRPS via order-statistic formula*) replaced the
+matrix with `np.sum(coeffs * xs) / (n * n)`, keeping the pairwise form as a
+test oracle and asserting the two agree to ~7e−15. The optimisation preserves
+the estimator deliberately. A search of `dhis2-chap/chap-core` returns one
+issue mentioning CRPS, on an unrelated model addition, and no issue or PR
+raising the estimator's bias.
 
 ---
 
