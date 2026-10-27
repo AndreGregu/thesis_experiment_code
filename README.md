@@ -5,7 +5,7 @@ evaluation metrics, run through the CHAP platform's own metric and plotting
 code.
 
 Produces the numbers and figures reported in Chapter 5 of the thesis
-*Evaluating Probabilistic Epidemiological Forecasts with Complementary Metrics*.
+*The Behaviour of Complementary Evaluation Metrics for Probabilistic Epidemiological Forecasts*.
 
 ---
 
