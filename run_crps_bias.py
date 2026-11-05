@@ -133,7 +133,7 @@ def main() -> None:
 
     fields = list(results[0])
     with open(OUTPUT_DIR / "crps_bias.csv", "w", newline="") as f:
-        writer = csv.DictWriter(f, fieldnames=fields)
+        writer = csv.DictWriter(f, fieldnames=fields, lineterminator="\n")
         writer.writeheader()
         writer.writerows(results)
 

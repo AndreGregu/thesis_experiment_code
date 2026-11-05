@@ -24,22 +24,28 @@ All four write to `output/` next to the scripts.
 
 ## Platform version
 
-The experiment requires **`chap-core` at commit `14594aa5`**:
+The experiment requires **`chap-core` at commit `4257eaae`**:
 
 ```
-https://github.com/AndreGregu/chap-core/tree/14594aa5c0afbb71ba522d83e44132d4ffcec093
+https://github.com/AndreGregu/chap-core/tree/4257eaae766f169ef36b37a1894b30869e94486a
 ```
 
-This is upstream `dhis2-chap/chap-core` at `1e4e05ef` (5 February 2026) plus two
-corrections without which the experiment cannot run:
+This is upstream `dhis2-chap/chap-core` at `1e4e05ef` (5 February 2026) plus
+corrections to the platform. Without the first two the experiment cannot run:
 
 - the peak metrics are not in the registry's discovery list, so they are never
   registered and silently produce no values
 - the week-identifier pattern requires `2022-W37` and rejects CHAP's own
   dashless `2022W37`, so the peak metrics fail to parse the dataset
 
-Upstream `master` will not work. Neither will the fork's `master` branch, which
-sits at `bc50c6de`, before both fixes.
+The third only affects `yaml_dashboard.png`:
+
+- each plot's `title` in `dashboard_config.yaml` is ignored, so every panel is
+  titled "Mean metric by horizon"
+
+Upstream `master` will not work. The fork's `master` branch currently points at
+`4257eaae`, but check out the commit above so later changes to the fork cannot
+affect the results.
 
 ---
 
@@ -56,7 +62,7 @@ DATASET_CSV = REPO_ROOT / "example_data" / "nicaragua_weekly_data.csv"
 So the layout has to be:
 
 ```
-chap-core/                          <- the checkout at 14594aa5
+chap-core/                          <- the checkout at 4257eaae
 ├── chap_core/                      <- the package the scripts import
 ├── example_data/
 │   └── nicaragua_weekly_data.csv   <- the dataset, found via parents[1]
@@ -91,7 +97,7 @@ Requires **Python 3.13** (`chap-core` pins `>=3.13,<3.14`).
 # 1. Clone the platform at the required commit
 git clone https://github.com/AndreGregu/chap-core.git
 cd chap-core
-git checkout 14594aa5c0afbb71ba522d83e44132d4ffcec093
+git checkout 4257eaae766f169ef36b37a1894b30869e94486a
 
 # 2. Clone this repository into it
 git clone <this-repo-url> experiment
