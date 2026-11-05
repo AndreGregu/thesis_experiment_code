@@ -7,6 +7,7 @@ configuration:
           type: metric
           metric: crps
           plot_type: metric_by_horizon_mean
+          title: CRPS by forecast horizon
       - text:
           value: "CRPS by forecast horizon (mean)."
   - row:
@@ -14,5 +15,6 @@ configuration:
           type: metric
           metric: ratio_above_truth
           plot_type: metric_by_time_location_mean
+          title: Ratio of samples above truth by time period and location
       - text:
           value: "Ratio of samples above truth by time period and location."

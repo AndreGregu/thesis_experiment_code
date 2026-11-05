@@ -95,6 +95,7 @@ configuration:
           type: metric
           metric: crps
           plot_type: metric_by_horizon_mean
+          title: CRPS by forecast horizon
       - text:
           value: "CRPS by forecast horizon (mean)."
   - row:
@@ -102,6 +103,7 @@ configuration:
           type: metric
           metric: ratio_above_truth
           plot_type: metric_by_time_location_mean
+          title: Ratio of samples above truth by time period and location
       - text:
           value: "Ratio of samples above truth by time period and location."
 """
@@ -395,6 +397,11 @@ def save_chart(chart, stem: Path) -> None:
             logger.warning("PNG export failed for %s (%s); JSON spec still written", stem.name, exc)
 
 
+def _chart_label(display: str) -> str:
+    """Drop the family suffix, e.g. ' (bias)' or ' (calib.)', from a metric display name."""
+    return display.split(" (")[0]
+
+
 def build_ranking_reversal_chart(table: pd.DataFrame, model_names: list[str]):
     """Grouped bar of each model's rank (1 = best) per metric.
 
@@ -414,12 +421,12 @@ def build_ranking_reversal_chart(table: pd.DataFrame, model_names: list[str]):
         for rank, idx in enumerate(order, start=1):
             ranks[idx] = rank
         for m, rk in zip(model_names, ranks):
-            rows.append({"metric": r["_display"], "model": m, "rank": int(rk)})
+            rows.append({"metric": _chart_label(r["_display"]), "model": m, "rank": int(rk)})
     rank_df = pd.DataFrame(rows)
 
     # Order the facet columns to match the results table (accuracy -> bias ->
     # calibration -> peak), so the reversal (peak period lag) reads at the far right.
-    metric_order = table["_display"].tolist()
+    metric_order = [_chart_label(d) for d in table["_display"]]
 
     return (
         alt.Chart(rank_df)
